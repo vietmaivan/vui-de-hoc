@@ -1,0 +1,8 @@
+{
+  "name": "hoc toan hinh tron",
+  "description": "Trò chơi tương tác học toán tiểu học về hình tròn (tâm, bán kính, đường kính), thực hành vẽ hình và cuộc phiêu lưu của bọ ngựa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
