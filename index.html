@@ -1,13 +1,34 @@
-<!--https://docs.google.com/spreadsheets/d/1MMha3gcFBvw2EhTigiJCP3yzS4a1DPBhlOjgB2EkRcU/edit?gid=0#gid=0-->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <!-- Thêm thẻ meta này để giao diện co giãn trên điện thoại -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Trò Chơi Học Tập</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; }
+        /* Tối ưu hóa body cho cả di động và máy tính */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px; /* Giới hạn chiều rộng trên máy tính */
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            border-radius: 8px;
+            height: fit-content;
+        }
+
         .hidden { display: none; }
-        input, button { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
+        input, button { width: 100%; padding: 12px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
         button { background-color: #28a745; color: white; border: none; cursor: pointer; font-weight: bold; }
         .game-link { display: block; padding: 15px; margin: 10px 0; background: #e9ecef; text-decoration: none; color: #333; border-radius: 5px; text-align: center; font-weight: bold;}
         .game-link:hover { background: #dee2e6; }
@@ -15,31 +36,31 @@
 </head>
 <body>
 
-    <!-- Form nhập thông tin (Chỉ hiện khi chưa có dữ liệu) -->
-    <div id="loginForm" class="hidden">
-        <h2>Nhập thông tin học sinh</h2>
-        <input type="text" id="studentName" placeholder="Nhập Họ và Tên...">
-        <input type="text" id="studentClass" placeholder="Nhập Lớp (Ví dụ: 3A)...">
-        <button onclick="saveInfo()">Vào Trò Chơi</button>
-    </div>
+    <div class="container">
+        <!-- Form nhập thông tin -->
+        <div id="loginForm" class="hidden">
+            <h2>Nhập thông tin học sinh</h2>
+            <input type="text" id="studentName" placeholder="Nhập Họ và Tên...">
+            <input type="text" id="studentClass" placeholder="Nhập Lớp (Ví dụ: 3A)...">
+            <button onclick="saveInfo()">Vào Trò Chơi</button>
+        </div>
 
-    <!-- Danh sách trò chơi (Hiện khi đã có thông tin) -->
-    <div id="gameMenu" class="hidden">
-        <h2>Xin chào, <span id="displayName"></span> (<span id="displayClass"></span>)!</h2>
-        <p>Chọn một trò chơi bên dưới:</p>
-        <a href="https://thu-tai-do-goc-kham-pha-thuoc-e-ke.vercel.app" class="game-link">Thử tài đo góc - khám phá thước ê ke</a>
-        <a href="https://hoc-toan-hinh-tron-pdzf.vercel.app" class="game-link">Học toán hình tròn</a>
-        <a href="https://dau-truong-chu-vi.vercel.app" class="game-link">Đấu trường chu vi
-</a>
-        
-        <button onclick="clearInfo()" style="background-color: #dc3545; margin-top: 20px;">Đổi tài khoản khác</button>
+        <!-- Danh sách trò chơi -->
+        <div id="gameMenu" class="hidden">
+            <h2>Xin chào, <span id="displayName"></span> (<span id="displayClass"></span>)!</h2>
+            <p>Chọn một trò chơi bên dưới:</p>
+            <a href="https://thu-tai-do-goc-kham-pha-thuoc-e-ke.vercel.app" class="game-link">Thử tài đo góc - khám phá thước ê ke</a>
+            <a href="https://hoc-toan-hinh-tron-pdzf.vercel.app" class="game-link">Học toán hình tròn</a>
+            <a href="https://dau-truong-chu-vi.vercel.app" class="game-link">Đấu trường chu vi</a>
+            
+            <button onclick="clearInfo()" style="background-color: #dc3545; margin-top: 20px;">Đổi tài khoản khác</button>
+        </div>
     </div>
 
     <script>
         const loginForm = document.getElementById('loginForm');
         const gameMenu = document.getElementById('gameMenu');
 
-        // Kiểm tra xem đã có thông tin trong localStorage chưa
         function checkLogin() {
             const name = localStorage.getItem('studentName');
             const className = localStorage.getItem('studentClass');
@@ -51,11 +72,11 @@
                 gameMenu.classList.remove('hidden');
             } else {
                 loginForm.classList.remove('hidden');
+                gameMenu.classList.remove('hidden'); // Cần ẩn cái còn lại
                 gameMenu.classList.add('hidden');
             }
         }
 
-        // Lưu thông tin vào localStorage
         function saveInfo() {
             const name = document.getElementById('studentName').value.trim();
             const className = document.getElementById('studentClass').value.trim();
@@ -70,14 +91,12 @@
             checkLogin();
         }
 
-        // Xóa thông tin (Nếu học sinh muốn đổi tên/lớp)
         function clearInfo() {
             localStorage.removeItem('studentName');
             localStorage.removeItem('studentClass');
             checkLogin();
         }
 
-        // Chạy kiểm tra ngay khi tải trang
         checkLogin();
     </script>
 </body>
