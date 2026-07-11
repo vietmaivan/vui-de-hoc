@@ -1,0 +1,8 @@
+{
+  "name": "dau truong chu vi",
+  "description": "Trò chơi tính chu vi hình vuông và hình chữ nhật sôi nổi dành cho học sinh lớp 3.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
